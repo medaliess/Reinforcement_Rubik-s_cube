@@ -1,4 +1,4 @@
-from Cube_env import RubiksEnv
+from Rubiks_Cube_env import RubiksEnv
 import numpy as np
 import random
 from tqdm import tqdm
