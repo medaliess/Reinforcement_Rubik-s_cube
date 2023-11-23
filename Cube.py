@@ -313,12 +313,4 @@ class Cube():
 
 
     
-
-if __name__ == '__main__':
-    cube=Cube()
-    print(cube.get_array())
-    print(cube.solvability_percentage())
-    cube.shuffle()
-    print(cube.get_array())
-    print(cube.solvability_percentage())
  
