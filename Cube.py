@@ -92,8 +92,12 @@ class Cube():
         axs[3, 2].axis('off')
         axs[3, 3].axis('off')
 
+        #plot for 2 seconds then delete the plot
+        plt.show(block=False)
+        plt.pause(2)
+        plt.close()
         
-        plt.show()
+        
          
     
     def do(self, move):
@@ -274,7 +278,6 @@ class Cube():
             self.L[:,0] = down[2,:]
     
     def shuffle(self, number_of_moves = 1, seed = 7):
-        random.seed(seed)
         for i in range(number_of_moves):
             move = random.choice(list(self.moveDict.values()))
             self.do(move)
@@ -310,7 +313,6 @@ class Cube():
         solvability_percentage = (correct_stickers / total_stickers) * 100
 
         return solvability_percentage
-
 
     
  
