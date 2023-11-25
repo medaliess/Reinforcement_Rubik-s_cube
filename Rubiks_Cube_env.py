@@ -1,8 +1,5 @@
-
-
 import numpy as np
 from gym.spaces import Discrete, MultiDiscrete
-import numpy as np
 from Cube import Cube
 
 class RubiksEnv():
@@ -32,23 +29,28 @@ class RubiksEnv():
         if not self.cube.isdone():
             move=self.actions_dict[action]
             self.cube.do(move)
-            reward =-1
+            p=self.cube.solvability_percentage()/100
+            reward =-1+p
         self.move_number +=1
+
         
         
-        done = self.cube.isdone() or self.move_number >= 200
         
-        if self.cube.isdone():
+        done = self.cube.isdone() or self.move_number >= self.shuffle_number*2 +1
+        
+        if self.cube.isdone():  
             reward = 10
+
     
         return self.cube.get_array(),reward,done
         
-    def reset(self,N_shuffle=10):
+    def reset(self,N_shuffle=5):
         self.cube = Cube()
         self.cube.reset()
         self.cube.shuffle(number_of_moves=N_shuffle)
         self.move_number = 0
         self.reset_number += 1
+        self.shuffle_number = N_shuffle
         return self.cube.get_array()
     
     def render(self, mode='human', close=False):
@@ -57,8 +59,3 @@ class RubiksEnv():
     def is_done(self):
         return self.cube.isdone()
 
-if __name__ == '__main__':
-    env = RubiksEnv()
-    env.reset()
-    print("statw example",env.observation_space.sample())
-    print("actions",env.action_space.n)
